@@ -1,6 +1,7 @@
 import React from "react";
 import Forum from "./pages/forum";
 import Signup from "./pages/signup";
+import Login from "./pages/login";
 import {
   BrowserRouter,
   Routes,
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Forum />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

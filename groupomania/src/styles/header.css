@@ -1,0 +1,18 @@
+header{
+    background: black;
+    color:white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+h1{
+    display: inline-block;
+}
+.disconnect{
+    background-color: rgb(105, 105, 105);
+    padding:5px 0px;
+}
+a{
+    color:white;
+    text-decoration: none;
+}

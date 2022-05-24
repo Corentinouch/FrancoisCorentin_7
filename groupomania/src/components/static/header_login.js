@@ -1,13 +1,14 @@
 import '../../styles/header.css'
 
-const Header = () => {
+const Header_login = () => {
 
     return (
         <header>
             <h1>Groupomania</h1>
-            <div class="disconnect"><a href="/login">Deconnexion</a></div>
         </header>
+
     )
+
 }
 
-export default Header
+export default Header_login

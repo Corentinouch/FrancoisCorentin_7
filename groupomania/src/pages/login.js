@@ -2,7 +2,7 @@ import Layout_login from "../components/static/layout_login"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 
-const Signup = () => {
+const Login = () => {
 
     const { register, handleSubmit } = useForm();
 
@@ -16,7 +16,7 @@ const Signup = () => {
 
 return (
     <Layout_login>
-        <h1>Signup</h1>
+        <h1>Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -29,7 +29,7 @@ return (
                 <input {...register('password')} type="text" /> 
             </div>
 
-            <button>Signup</button>
+            <button>Login</button>
 
         </form>
     </Layout_login>
@@ -37,4 +37,4 @@ return (
 
 }
 
-export default Signup
+export default Login
