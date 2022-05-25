@@ -1,5 +1,7 @@
 const connection = require("../database/db")
 
+
+
 exports.signup = (req, res) => {
     connection.query(
         "INSERT INTO user (id, email, password) VALUES (?,?,?)",
@@ -13,6 +15,7 @@ exports.signup = (req, res) => {
             }
             res.status(201).json({
                 message:"Utilisateur créé.e"
+                //redirect page de connexion "/login"
             })
             console.log(results);
         }
