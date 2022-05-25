@@ -1,7 +1,8 @@
 import React from "react";
-import Forum from "./pages/forum";
-import Signup from "./pages/signup";
-import Login from "./pages/login";
+import Forum from "./pages/Forum";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import './app.css'
 import {
   BrowserRouter,
   Routes,
@@ -12,9 +13,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Forum />} />
+        <Route path="/forum" element={<Forum />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
