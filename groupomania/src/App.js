@@ -1,7 +1,9 @@
 import React from "react";
+import axios from "axios";
 import Forum from "./pages/Forum";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Modifpost from "./pages/Modifpost";
 import './app.css'
 import {
   BrowserRouter,
@@ -10,12 +12,14 @@ import {
 } from "react-router-dom"
 
 function App() {
+  axios.defaults.headers.common.Authorization = "Bearer " + localStorage.token
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/forum" element={<Forum />} />
+        <Route path="/" element={<Forum />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/post/:postId" element={<Modifpost />} />
       </Routes>
     </BrowserRouter>
   );

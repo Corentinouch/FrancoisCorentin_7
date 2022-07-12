@@ -1,0 +1,23 @@
+main{
+    text-align: center;
+}
+.posts{
+    background-color: grey;
+    margin:5px;
+    padding:5px;
+}
+.posts img{
+    width:50%;
+    height: auto;
+}
+
+.active{
+    background-color: red;
+}
+
+.separate{
+    width: 100%;
+    height: 1px;
+    margin: auto;
+    background: white;
+}
