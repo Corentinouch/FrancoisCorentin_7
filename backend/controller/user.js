@@ -1,67 +1,99 @@
 const connection = require("../database/db")
-
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
 
 
 exports.signup = (req, res) => {
-    connection.query(
-        "INSERT INTO user (id, email, password) VALUES (?,?,?)",
-        [null, req.body.email, bcrypt.hash(req.body.password, 10)],
-        function (err, results) {
-            if (err) {
-                console.log(err);
-                res.status(400).json({
-                    message:"Veuillez remplir tous les champs du formulaire"
+    bcrypt.hash(req.body.password, 10).then(
+        hash => {
+            if (!hash) {
+                return res.status(500).json({
+                    message: "Erreur lors du hachage"
                 })
             }
-            res.status(201).json({
-                message:"Utilisateur créé.e"
-                //redirect page de connexion "/login"
-            })
-            console.log(results);
+            connection.query(
+                "INSERT INTO user (id, email, password,admin) VALUES (?,?,?,0)",
+                [null, req.body.email, hash],
+                function (err, results) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(400).json({
+                            message: "Veuillez remplir tous les champs du formulaire"
+                        })
+                    }
+                    res.status(201).json({
+                        message: "Utilisateur créé.e"
+                        //redirect page de connexion "/login"
+                    })
+                    console.log(results);
+                }
+            );
         }
-    );
+    ).catch(
+        error => {
+            return res.status(500).json({
+                message: "Hash bcrypt ne fonctionne pas"
+            })
+        }
+    )
+
 }
 
 exports.getUser = (req, res) => {
     connection.query(
         'SELECT * FROM user WHERE id = ?',
-        [req.params.id],
+        [req.auth.userId],
         function (err, results) {
             if (err) {
                 console.log(err);
                 res.status(404).json({
-                    message:"Utilisateur introuvable"
+                    message: "Utilisateur introuvable"
                 })
             }
+            const user = results[0];
             res.status(200).json({
-                user:results[0]
+                user: {
+                    email: user.email,
+                    id :user.id,
+                    admin:user.admin
+                }
             })
-            console.log(results);
         }
     );
 }
-/*
+
 exports.login = (req, res) => {
-    User.findOne({ email: req.body.email })
-      .then(user => {
-        if (!user) {
-          return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-        }
-        bcrypt.compare(req.body.password, user.password)
-          .then(valid => {
-            if (!valid) {
-              return res.status(401).json({ error: 'Mot de passe incorrect !' });
+    const { email, password } = req.body
+    connection.query(
+        'SELECT * FROM user WHERE email = ?',
+        [email],
+        function (err, results) {
+            const user = results[0]
+            if (!user) {
+                return res.status(404).json({
+                    message: "Utilisateur introuvable"
+                })
             }
-            res.status(200).json({
-              userId: user._id,
-              token: jwt.sign(
-                { userId: user._id },
-                'RANDOM_TOKEN_SECRET',
-                { expiresIn: '24h' }
-              )
-            });
-          })
-          .catch(error => res.status(500).json({ error }));
-      })
-      .catch(error => res.status(500).json({ error }));
-  };*/
+            bcrypt.compare(password, user.password).then(
+                (valid) => {
+                    if (!valid) {
+                        return res.status(401).json({
+                            message: "Mot de passe invalide"
+                        })
+                    }
+                    return res.status(201).json({
+                        userId: user.id,
+                        token: jwt.sign({ userId: user.id, admin: user.admin }, "RANDOM", { expiresIn: "24h" })
+                    })
+                }
+            ).catch(
+                error => {
+                    return res.status(500).json({
+                        message: "Compare bcrypt ne fonctionne pas"
+                    })
+                }
+            )
+        }
+
+    )
+}
