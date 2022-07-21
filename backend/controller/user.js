@@ -54,8 +54,8 @@ exports.getUser = (req, res) => {
             res.status(200).json({
                 user: {
                     email: user.email,
-                    id :user.id,
-                    admin:user.admin
+                    id: user.id,
+                    admin: user.admin
                 }
             })
         }
@@ -96,4 +96,35 @@ exports.login = (req, res) => {
         }
 
     )
+}
+
+exports.deleteUser = (req, res) => {
+    connection.query(
+        "SELECT * FROM groupomania.user WHERE id = ?",
+        [req.auth.userId],
+        function (err, results) {
+            const user = results[0];
+            if (user === req.auth.userId || req.auth.admin) {
+                connection.query(
+                    "DELETE FROM groupomania.user WHERE id=?",
+                    [req.auth.userId],
+                    function (err, results) {
+                        if (err || !results.affectedRows) {
+                            console.log(err);
+                            return res.status(404).json({
+                                message: "L'utilisateur n'a pas pus être supprimé"
+                            })
+                        }
+                        res.status(200).json({
+                            message: "L'utilisateur a été supprimé"
+                        })
+                    }
+                )
+            } else {
+                return res.status(401).json({
+                    message: "Acces interdit"
+                })
+            }
+
+        })
 }

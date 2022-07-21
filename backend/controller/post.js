@@ -2,7 +2,9 @@ const connection = require("../database/db")
 
 exports.getAllPost = (req, res) => {
     connection.query(
-        'SELECT post.id,post.message,post.imageurl,post.likes,post.user_id,user.email FROM post LEFT JOIN user ON user.id = post.user_id',
+        //'SELECT post.id,post.message,post.imageurl,post.likes,post.user_id,user.email FROM post LEFT JOIN user ON user.id = post.user_id',
+        "SELECT post.id,post.message,post.imageurl,post.likes,post.user_id,user.email, groupomania.like.user_id AS 'hasLiked' FROM post LEFT JOIN user ON user.id = post.user_id LEFT JOIN groupomania.like ON groupomania.like.user_id = ? AND post.id = groupomania.like.post_id",
+        [req.auth.userId],
         function (err, results) {
             if (err) {
                 console.log(err);
@@ -201,4 +203,16 @@ exports.likePost = (req, res) => {
 
         }
     )
+}
+
+exports.hasLike = (req, res) => {
+    connection.query(
+        "SELECT * FROM groupomania.like WHERE user_id = ? AND post_id = ?",
+        [req.auth.userId, req.params.id],
+        function (err, results) {
+            if (err || !results.length) {
+                return res.status(404).json(false)
+            }
+            return res.status(200).json(true)
+        })
 }
