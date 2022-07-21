@@ -2,6 +2,7 @@ import Header from "./Header"
 import Footer from "./Footer"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
+import logo from "../../images/groupomania_red.png"
 
 const Layout = ({ children }) => {
     const navigate = useNavigate();
@@ -15,13 +16,14 @@ const Layout = ({ children }) => {
         localStorage.clear()
         navigate("/login")
     }
+    console.log(__dirname);
     return (
         <>
         
             <Header>
-                <h1>Groupomania</h1>
+            <img src={logo} alt="logo groupomania"/>
                 <div className="disconnect">
-                    <a onClick={logout}>Deconnexion</a>
+                    <a onClick={logout}>Déconnexion</a>
                 </div>
             </Header>
 

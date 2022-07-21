@@ -1,26 +1,28 @@
 /*layout-login.js*/
 .login{
-    margin:20px 20px;
+    margin:100px 20px;
 }
 
 .login > div  {
-    background-color:rgb(213, 213, 213);
-    text-align:center;
+    background-color:#4E5166;
+    color:#ffffff;
 }
 
 /*login.js*/
 .login form div{
     display: grid;
     justify-content: center;
-    text-align: left;
+    text-align: center;
 }
 
 .login form div label{
     margin:5px;
+    
 }
 
 .login form div input{
     width:200px;
+    text-align: center;
 }
 
 .login form button{
@@ -38,5 +40,5 @@
 .login .form_btn a{
     font-size:smaller;
     text-decoration:underline;
-    color:black;
+    color:rgb(255, 255, 255);
 }

@@ -2,8 +2,9 @@ import { useForm } from "react-hook-form"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Layout from "../components/static/Layout"
-import {NavLink, useNavigate} from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useParams } from "react-router-dom"
+import "../styles/forum.css"
 
 const Modifpost = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -27,7 +28,7 @@ const Modifpost = () => {
 
     const onSubmit = (data) => {
         const formdata = new FormData();
-        
+
         formdata.append("message", data.message)
         formdata.append("image", data.image[0])
         axios.put(process.env.REACT_APP_API + "/post/" + params.postId, formdata)
@@ -36,27 +37,31 @@ const Modifpost = () => {
                 reset();
             })
             .catch(error => console.log("error"))
-            console.log(data.image[0])
-            console.log(data)
+        console.log(data.image[0])
+        console.log(data)
     };
 
     return (
         <Layout>
-             <NavLink to={"/"}>Retour au forum</NavLink>
-            <h1>ModifPost</h1>
+            <div className="modif_title">
+                <h1>Modification du post</h1>
+                <NavLink to={"/"}>Retour au forum</NavLink>
+            </div>
+
             <div className="posts" id={post.id}>
                 {post.imageurl ? <img src={post.imageurl} alt="post img" /> : null}
-                <p>{post.message}</p>
-                <p>{post.imageurl}</p>
+                <p className="message">{post.message}</p>
             </div>
 
 
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label>Message</label>
-                    <input {...register('message')} type="text" placeholder="Message" required />
-                    <input type="file" {...register('image')}/>
+            <form className="form_bk" onSubmit={handleSubmit(onSubmit)}>
+                <div className="modif_form">
+                    <div> Mofidier votre post ici</div>
+                    <div className="input_form">
+                        <input {...register('message')} type="text" placeholder="Message" required />
+                        <input type="file" {...register('image')} />
+                    </div>
                 </div>
                 <div className="form_btn">
                     <button>Envoyer</button>

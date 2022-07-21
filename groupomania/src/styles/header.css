@@ -1,9 +1,8 @@
 header{
-    background: black;
-    color:white;
+    background: rgb(255, 255, 255);
+    color:rgb(0, 0, 0);
     text-align: center;
     display: flex;
-    flex-direction: column;
 }
 
 h1{
@@ -11,11 +10,26 @@ h1{
 }
 
 .disconnect{
-    background-color: rgb(105, 105, 105);
-    padding:5px 0px;
+    background-color: #FFD7D7;
+    padding: 5px;
+    display: block;
+    width: 100px;
+    margin: auto;
+}
+.disconnect:hover{
+    background-color: #FD2D01;
+    cursor: pointer;
 }
 
 header a{
     color:white;
     text-decoration: none;
+}
+
+header img{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 50%;
 }

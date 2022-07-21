@@ -2,22 +2,116 @@ main{
     text-align: center;
 }
 .posts{
-    background-color: grey;
-    margin:5px;
-    padding:5px;
+    margin: auto;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 65%;
+    border:1px rgba(255, 0, 0, 0.2) solid;
 }
 .posts img{
-    width:50%;
+    width:100%;
     height: auto;
+}
+.posts .message {
+    display: inline-block;
+    width: 60%;
+    overflow-wrap: anywhere;
 }
 
 .active{
     background-color: red;
 }
-
-.separate{
-    width: 100%;
-    height: 1px;
+.post_bk{
+    background: #ffd7d7;
+    padding: 5px;
+    position: relative;
+}
+.form_bk{
+    background: #4E5166;
+    color: white;
+    width: 90%;
     margin: auto;
-    background: white;
+    padding: 10px;
+}
+
+.modif_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modif_form div, .modif_form input{
+    margin:5px;
+}
+
+.input_form{
+    display: flex;
+    flex-direction: column;
+}
+
+.modif_title{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.modif_title a{
+    text-decoration: none;
+    background: #ffd7d7;
+    display: block;
+    width: 150px;
+    margin: auto;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+}
+.modif_title a:hover{
+    background: #FD2D01;
+}
+
+button{
+    background: #ffd7d7;
+    border: none;
+    padding:4px 10px;
+    cursor: pointer;
+    color:white
+}
+button:hover{
+    background: #FD2D01;
+    
+}
+
+.btn_gpe{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5px;
+}
+.btn_gpe a{
+    text-decoration: none;
+    color:white;
+}
+
+.btn_like{
+    cursor: pointer;
+    display: block;
+    width: 20px;
+    margin:5px;
+}
+.like_bk{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background:rgba(255,255,255,0.5);
+    padding: 0px 10px;
+    color: black;
+}
+.like{
+    display: flex;
+    align-items: center;
+}
+.like p{
+    margin:10px
+}
+h1,*{
+    font-family: Arial, Helvetica, sans-serif;
 }
