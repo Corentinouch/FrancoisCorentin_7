@@ -3,7 +3,7 @@ const connection = require("../database/db")
 exports.getAllPost = (req, res) => {
     connection.query(
         //'SELECT post.id,post.message,post.imageurl,post.likes,post.user_id,user.email FROM post LEFT JOIN user ON user.id = post.user_id',
-        "SELECT post.id,post.message,post.imageurl,post.likes,post.user_id,user.email, groupomania.like.user_id AS 'hasLiked' FROM post LEFT JOIN user ON user.id = post.user_id LEFT JOIN groupomania.like ON groupomania.like.user_id = ? AND post.id = groupomania.like.post_id",
+        "SELECT post.id,post.message,post.imageurl,post.likes,post.user_id,user.email, groupomania.like.user_id AS 'hasLiked' FROM post LEFT JOIN user ON user.id = post.user_id LEFT JOIN groupomania.like ON groupomania.like.user_id = ? AND post.id = groupomania.like.post_id ORDER BY post.id desc",
         [req.auth.userId],
         function (err, results) {
             if (err) {
